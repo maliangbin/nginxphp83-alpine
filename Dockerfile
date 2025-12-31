@@ -6,6 +6,7 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories
 RUN set -xe \
     && apk add --no-cache \
         openssl-dev \
+        curl-dev \
         freetype-dev \
         libjpeg-turbo-dev \
         libpng-dev \
@@ -40,7 +41,7 @@ RUN set -xe \
         ${PHPIZE_DEPS} \
     && pecl install redis \
     && pecl install mongodb \
-    && pecl install --configureoptions 'enable-openssl="yes"' swoole \
+    && pecl install --configureoptions 'enable-openssl="yes" enable-swoole-curl="yes"' swoole \
     && pecl install xlswriter \
     && pecl install xhprof \
     && pecl install imagick
@@ -64,7 +65,6 @@ RUN set -xe \
         libwebp \
         gettext \
         argon2 \
-        libxml2 \
         libxslt \
         libstdc++ \
         zlib \
